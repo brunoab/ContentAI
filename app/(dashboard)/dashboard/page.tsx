@@ -84,7 +84,7 @@ export default async function DashboardPage() {
     EMAIL: "var(--chart-2)",
     BIO: "var(--chart-3)",
   }
-  const donutData = generationsByTool.map((g) => ({
+  const donutData = generationsByTool.map((g: { tool: string; _count: { tool: number } }) => ({
     type: g.tool.toLowerCase(),
     count: g._count.tool,
     fill: toolColorMap[g.tool] ?? "var(--chart-4)",
