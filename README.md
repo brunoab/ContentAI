@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ContentAI — AI-Powered Content Generator
 
-## Getting Started
+> Generate professional LinkedIn posts, cold emails, and profile bios in seconds using Claude AI.
 
-First, run the development server:
+**[Live Demo](https://contentai.vercel.app)** · [Report Bug](https://github.com/yourname/contentai/issues)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **3 AI Tools** : LinkedIn posts, cold outreach emails, professional bios
+- **Smart Credits** : 5 free generations per day, unlimited with Pro
+- **Streaming Responses** : See your content appear word by word
+- **Generation History** : Access and copy all your past generations
+- **Stripe Billing** : Seamless subscription management
+- **Secure Auth** : Email/password authentication with NextAuth v5
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+![Next.js](https://img.shields.io/badge/Next.js_16-black?style=flat&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=flat&logo=postgresql&logoColor=white)
+![Stripe](https://img.shields.io/badge/Stripe-626CD9?style=flat&logo=stripe&logoColor=white)
 
-## Learn More
+## Local Setup
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clone the repo**
+   ```bash
+   git clone https://github.com/yourname/contentai.git
+   cd contentai
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Configure environment variables**
+   ```bash
+   cp .env.example .env.local
+   # Fill in your values (see table below)
+   ```
 
-## Deploy on Vercel
+4. **Set up the database**
+   ```bash
+   npx prisma migrate dev --name init
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. **Run the dev server**
+   ```bash
+   npm run dev
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Environment Variables
+
+| Variable | Description | Where to get it |
+|----------|-------------|-----------------|
+| `DATABASE_URL` | PostgreSQL connection string | [neon.tech](https://neon.tech) |
+| `NEXTAUTH_SECRET` | Random secret | `openssl rand -base64 32` |
+| `NEXTAUTH_URL` | App URL | `http://localhost:3000` |
+| `ANTHROPIC_API_KEY` | Claude AI API key | [console.anthropic.com](https://console.anthropic.com) |
+| `STRIPE_SECRET_KEY` | Stripe secret key (test) | [Stripe Dashboard](https://dashboard.stripe.com) |
+| `STRIPE_WEBHOOK_SECRET` | Webhook signing secret | Stripe CLI |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe publishable key | Stripe Dashboard |
+| `NEXT_PUBLIC_APP_URL` | App URL | `http://localhost:3000` |
+
+## Deploy to Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourname/contentai)
+
+Set all environment variables in Vercel dashboard before deploying.
+
+## License
+
+MIT

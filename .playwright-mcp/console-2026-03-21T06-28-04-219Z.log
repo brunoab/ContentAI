@@ -1,0 +1,6 @@
+[   26729ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/api/generate:0
+[   26731ms] [ERROR] Error: Internal error
+    at handleGenerate (http://localhost:3000/_next/static/chunks/components_0t.-bxr._.js:833:23) @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3272
+[   55111ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/api/generate:0
+[   55111ms] [ERROR] Error: Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.
+    at handleGenerate (http://localhost:3000/_next/static/chunks/components_0t.-bxr._.js:833:23) @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3272
