@@ -51,27 +51,29 @@ export default async function DashboardPage() {
   const session = await auth()
   if (!session?.user?.id) redirect("/login")
 
+  const userQuery = db.user.findUnique({
+    where: { id: session.user.id },
+    select: {
+      creditsUsedToday: true,
+      subscriptionStatus: true,
+      _count: { select: { generations: true } },
+    },
+  })
+  const totalQuery = db.generation.count({ where: { userId: session.user.id } })
+  const recentQuery = db.generation.findMany({
+    where: { userId: session.user.id },
+    orderBy: { createdAt: "desc" },
+    take: 5,
+    select: { id: true, tool: true, result: true, createdAt: true },
+  })
+  const byToolQuery = db.generation.groupBy({
+    by: ["tool"],
+    where: { userId: session.user.id },
+    _count: { tool: true },
+  })
+
   const [user, totalGenerations, recentGenerations, generationsByTool] = await Promise.all([
-    db.user.findUnique({
-      where: { id: session.user.id },
-      select: {
-        creditsUsedToday: true,
-        subscriptionStatus: true,
-        _count: { select: { generations: true } },
-      },
-    }),
-    db.generation.count({ where: { userId: session.user.id } }),
-    db.generation.findMany({
-      where: { userId: session.user.id },
-      orderBy: { createdAt: "desc" },
-      take: 5,
-      select: { id: true, tool: true, result: true, createdAt: true },
-    }),
-    db.generation.groupBy({
-      by: ["tool"],
-      where: { userId: session.user.id },
-      _count: { tool: true },
-    }),
+    userQuery, totalQuery, recentQuery, byToolQuery,
   ])
 
   if (!user) redirect("/login")
@@ -84,7 +86,7 @@ export default async function DashboardPage() {
     EMAIL: "var(--chart-2)",
     BIO: "var(--chart-3)",
   }
-  const donutData = generationsByTool.map((g: { tool: string; _count: { tool: number } }) => ({
+  const donutData = generationsByTool.map((g) => ({
     type: g.tool.toLowerCase(),
     count: g._count.tool,
     fill: toolColorMap[g.tool] ?? "var(--chart-4)",
