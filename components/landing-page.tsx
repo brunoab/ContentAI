@@ -136,7 +136,7 @@ const translations = {
     ctaTitle: "Empowering Your Content Creation Freedom",
     ctaSubtitle: "Join thousands of professionals saving hours every week with AI-powered content.",
     ctaBtn: "Start for free",
-    footerRights: "© 2026 ContentAI. MIT License.",
+    footerRights: "© 2026 ContentAI - Bruno A.",
   },
   fr: {
     nav: { pricing: "Tarifs", login: "Connexion", getStarted: "Commencer" },
@@ -246,7 +246,7 @@ const translations = {
     ctaSubtitle:
       "Rejoignez des milliers de professionnels qui économisent des heures chaque semaine.",
     ctaBtn: "Commencer gratuitement",
-    footerRights: "© 2026 ContentAI. Licence MIT.",
+    footerRights: "© 2026 ContentAI - Bruno A.",
   },
   es: {
     nav: { pricing: "Precios", login: "Iniciar sesión", getStarted: "Empezar" },
@@ -356,7 +356,7 @@ const translations = {
     ctaSubtitle:
       "Únete a miles de profesionales que ahorran horas cada semana.",
     ctaBtn: "Empezar gratis",
-    footerRights: "© 2026 ContentAI. Licencia MIT.",
+    footerRights: "© 2026 ContentAI - Bruno A.",
   },
 } as const
 
@@ -561,12 +561,13 @@ export function LandingPage() {
                 {t.heroCTA1}
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
               </Link>
-              <Link
-                href="/pricing"
+              <a
+                href="#pricing"
+                onClick={(e) => { e.preventDefault(); document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" }) }}
                 className="flex h-12 items-center gap-2 rounded-full border border-white/20 bg-white/10 px-7 text-sm font-medium text-white/90 backdrop-blur-sm transition-all hover:bg-white/20"
               >
                 {t.heroCTA2}
-              </Link>
+              </a>
             </div>
 
             <p className="text-xs text-white/40">
@@ -736,7 +737,7 @@ export function LandingPage() {
         </section>
 
         {/* ── Pricing ──────────────────────────────────────────────── */}
-        <section className="landing-section-light px-4 py-24">
+        <section id="pricing" className="landing-section-light px-4 py-24">
           <div className="mx-auto max-w-5xl">
             <div className="mb-16 text-center">
               <h2 className="font-[family-name:var(--font-fraunces)] text-4xl font-bold tracking-tight landing-heading sm:text-5xl">
@@ -904,9 +905,9 @@ export function LandingPage() {
           </div>
 
           <nav className="flex items-center gap-5 text-sm landing-muted-text">
-            <Link href="/pricing" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
+            <a href="#pricing" onClick={(e) => { e.preventDefault(); document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" }) }} className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
               {t.nav.pricing}
-            </Link>
+            </a>
             <Link href="/login" className="transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
               {t.nav.login}
             </Link>
