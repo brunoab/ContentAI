@@ -2,7 +2,7 @@
 
 > Generate professional LinkedIn posts, cold emails, and profile bios in seconds using Claude AI.
 
-**[Gto to app](content-ai-snowy.vercel.app)**
+**[Gto to app](https://content-ai-snowy.vercel.app/)**
 
 ## Features
 
