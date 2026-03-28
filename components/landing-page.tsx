@@ -817,7 +817,7 @@ export function LandingPage() {
                   ))}
                 </ul>
                 <Link
-                  href="/register"
+                  href="/register?plan=pro"
                   className="group flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-emerald-400 text-sm font-semibold text-emerald-950 shadow-lg transition-all hover:bg-emerald-300 hover:scale-[1.02]"
                 >
                   <Zap className="size-4" />

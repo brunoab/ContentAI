@@ -15,6 +15,7 @@ import {
   X,
   Sparkles,
   CreditCard,
+  Zap,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -76,6 +77,7 @@ function UserFooter({
   plan: "FREE" | "PRO"
 }) {
   const [billingLoading, setBillingLoading] = useState(false)
+  const [upgradeLoading, setUpgradeLoading] = useState(false)
 
   const initials = user.name
     ? user.name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2)
@@ -92,9 +94,35 @@ function UserFooter({
     }
   }
 
+  async function handleUpgrade() {
+    setUpgradeLoading(true)
+    try {
+      const res = await fetch("/api/billing/checkout", { method: "POST" })
+      const data = await res.json()
+      if (data.url) {
+        window.location.href = data.url
+        return
+      }
+    } catch {
+      // ignore
+    }
+    setUpgradeLoading(false)
+  }
+
   return (
     <div className="border-t px-3 py-3 space-y-3">
       <CreditBadge creditsUsed={creditsUsed} plan={plan} />
+      {plan === "FREE" && (
+        <Button
+          size="sm"
+          className="w-full bg-emerald-500 hover:bg-emerald-600 text-white text-xs"
+          onClick={handleUpgrade}
+          disabled={upgradeLoading}
+        >
+          <Zap className="size-3 mr-2" />
+          {upgradeLoading ? "Redirecting…" : "Upgrade to Pro"}
+        </Button>
+      )}
       {plan === "PRO" && (
         <Button
           variant="ghost"

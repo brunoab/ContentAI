@@ -1,6 +1,6 @@
 "use client"
 
-import Link from "next/link"
+import { useState } from "react"
 import {
   Dialog,
   DialogContent,
@@ -26,6 +26,23 @@ const PRO_FEATURES = [
 ]
 
 export function UpgradeModal({ open, onOpenChange }: UpgradeModalProps) {
+  const [loading, setLoading] = useState(false)
+
+  async function handleUpgrade() {
+    setLoading(true)
+    try {
+      const res = await fetch("/api/billing/checkout", { method: "POST" })
+      const data = await res.json()
+      if (data.url) {
+        window.location.href = data.url
+        return
+      }
+    } catch {
+      // ignore
+    }
+    setLoading(false)
+  }
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent showCloseButton className="sm:max-w-md">
@@ -54,9 +71,9 @@ export function UpgradeModal({ open, onOpenChange }: UpgradeModalProps) {
           <DialogClose render={<Button variant="outline" />} nativeButton={false}>
             Maybe later
           </DialogClose>
-          <Button render={<Link href="/pricing" onClick={() => onOpenChange(false)} />} nativeButton={false}>
+          <Button onClick={handleUpgrade} disabled={loading}>
             <Zap className="size-4" />
-            Upgrade to Pro — $9/month
+            {loading ? "Redirecting..." : "Upgrade to Pro — $9/month"}
           </Button>
         </DialogFooter>
       </DialogContent>

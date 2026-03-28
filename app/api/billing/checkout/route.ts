@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth"
-import { stripe, getOrCreateStripeCustomer } from "@/lib/stripe"
+import { stripe, getOrCreateStripeCustomer, PLANS } from "@/lib/stripe"
 import { NextResponse } from "next/server"
 
 export async function POST() {
@@ -7,6 +7,12 @@ export async function POST() {
     const session = await auth()
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
+    const priceId = PLANS.PRO.priceId
+    if (!priceId) {
+      console.error("STRIPE_PRO_PRICE_ID is not configured")
+      return NextResponse.json({ error: "Pricing not configured" }, { status: 500 })
     }
 
     const customerId = await getOrCreateStripeCustomer(
@@ -19,19 +25,9 @@ export async function POST() {
       customer: customerId,
       mode: "subscription",
       payment_method_types: ["card"],
-      line_items: [
-        {
-          price_data: {
-            currency: "usd",
-            product_data: { name: "ContentAI Pro" },
-            unit_amount: 900,
-            recurring: { interval: "month" },
-          },
-          quantity: 1,
-        },
-      ],
+      line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?upgraded=true`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/pricing`,
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard`,
     })
 
     return NextResponse.json({ url: checkoutSession.url })

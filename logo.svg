@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Green rounded square -->
+  <rect x="0" y="0" width="512" height="512" rx="110" ry="110" fill="#1DBA73"/>
+
+  <!-- Star shape -->
+  <path d="M256 120 
+           C270 120 280 140 285 180
+           C290 220 310 235 350 240
+           C390 245 410 255 410 256
+           C410 257 390 267 350 272
+           C310 277 290 292 285 332
+           C280 372 270 392 256 392
+           C242 392 232 372 227 332
+           C222 292 202 277 162 272
+           C122 267 102 257 102 256
+           C102 255 122 245 162 240
+           C202 235 222 220 227 180
+           C232 140 242 120 256 120Z"
+        fill="none" stroke="white" stroke-width="24" stroke-linejoin="round"/>
+
+  <!-- Plus symbol -->
+  <path d="M360 150 v60 M330 180 h60"
+        stroke="white" stroke-width="24" stroke-linecap="round"/>
+
+  <!-- Circle -->
+  <circle cx="150" cy="340" r="30"
+          fill="none" stroke="white" stroke-width="24"/>
+</svg>
